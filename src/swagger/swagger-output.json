@@ -1,0 +1,38 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "DutyPol",
+    "description": "DutyPol apis",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5050",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/createCategory": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Create a new category",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Category name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "preserve",
+    "target": "es2024",
+    "allowImportingTsExtensions":true,
+    "emitDeclarationOnly":true,
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    
+  }
+}
+
+
+
+
+
+
+// {
+//   "compilerOptions": {
+//     // File Layout
+//     "rootDir": "src",
+//     "outDir": "dist",
+
+//     // Environment Settings - Modern Node.js
+//     "module": "ES2022",                    // Modern ESM for Node.js 18+
+//     "target": "ES2022",                    // Compatible with Node.js 18+
+//     "lib": ["ES2022"],
+//     "types": ["node"],                     // Node.js type definitions
+    
+//     // Module Resolution
+//     "moduleResolution": "node16",          // Proper ESM resolution for Node.js
+//     "allowImportingTsExtensions": false,   // Must be false for JS output
+//     "resolveJsonModule": true,             // Import JSON files
+//     "esModuleInterop": true,               // Better CommonJS interop
+    
+//     // Outputs
+//     "sourceMap": true,                     // Debug maps for production
+//     "declaration": true,                   // Type definitions
+//     "declarationMap": true,
+//     "emitDeclarationOnly": false,          // MUST emit JS for production!
+    
+//     // Stricter Type Checking (Production-Grade)
+//     "strict": true,
+//     "noUncheckedIndexedAccess": true,
+//     "exactOptionalPropertyTypes": true,
+//     "noImplicitReturns": true,
+//     "noImplicitOverride": true,
+//     "noUnusedLocals": true,
+//     "noUnusedParameters": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "noPropertyAccessFromIndexSignature": true,
+    
+//     // Module Safety
+//     "isolatedModules": true,
+//     "verbatimModuleSyntax": true,
+//     "noUncheckedSideEffectImports": true,
+//     "moduleDetection": "force",
+    
+//     // Performance
+//     "skipLibCheck": true,
+//     "forceConsistentCasingInFileNames": true,
+    
+//     // Path Mapping (Optional)
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"],
+//       "@prisma/*": ["./prisma/*"]
+//     }
+//   },
+//   "include": ["src/**/*"],
+//   "exclude": [
+//     "node_modules",
+//     "dist",
+//     "uploads",
+//     "**/*.test.ts",
+//     "**/*.spec.ts"
+//   ]
+// }
