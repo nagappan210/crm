@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "type":"module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsx src/app.ts",
@@ -15,8 +16,11 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.18.0",
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.3",
     "nodemon": "^3.1.10",
     "std-kit": "^2.4.1",
@@ -27,6 +31,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.7",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.9.1",
     "@types/swagger-ui-express": "^4.1.8",
     "esbuild": "^0.25.11",

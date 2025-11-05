@@ -3,14 +3,14 @@
   "compilerOptions": {
     // File Layout
     "rootDir": "src",
-    // "outDir": "./dist",
+    "outDir": "./dist",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "preserve",
     "target": "es2024",
-    "allowImportingTsExtensions":true,
-    "emitDeclarationOnly":true,
+    "allowImportingTsExtensions":false,
+    "emitDeclarationOnly":false,
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
