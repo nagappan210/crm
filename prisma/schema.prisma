@@ -24,24 +24,7 @@ model candidate {
   added_by                String?  @db.VarChar(255)
   created_at              DateTime @default(now()) @db.DateTime(0)
   updated_at              DateTime @default(now()) @db.DateTime(0)
-}
-
-model candidate_replica {
-  id                      Int      @id @default(autoincrement())
-  enquiry_raised_date     DateTime @db.DateTime(0)
-  enquiry_answered_date   DateTime @db.DateTime(0)
-  name                    String?  @db.VarChar(255)
-  phone_number            Int
-  alternative_phonenumber Int      @default(0) @db.MediumInt
-  email                   String?  @db.VarChar(255)
-  location                String?  @db.Text
-  role                    String?  @db.VarChar(255)
-  experience              String?  @db.VarChar(255)
-  months                  String?  @db.VarChar(255)
-  degree                  String?  @db.VarChar(255)
-  added_by                String?  @db.VarChar(255)
-  created_at              DateTime @default(now()) @db.DateTime(0)
-  updated_at              DateTime @default(now()) @db.DateTime(0)
+  s_delete                Int      @default(0) @db.TinyInt
 }
 
 model client {
@@ -64,6 +47,7 @@ model client {
   added_by                String   @db.VarChar(255)
   created_at              DateTime @default(now()) @db.DateTime(0)
   updated_at              DateTime @default(now()) @db.DateTime(0)
+  s_delete                Int      @default(0) @db.TinyInt
 }
 
 model file {
@@ -142,6 +126,7 @@ model department {
   updated_at DateTime @default(now()) @db.DateTime(0)
   s_delete   Int      @default(0) @db.TinyInt
 }
+
 model spam {
   id                    Int      @id @default(autoincrement())
   enquiry_raised_date   DateTime @db.DateTime(0)
@@ -150,8 +135,10 @@ model spam {
   location              String   @db.VarChar(255)
   leads                 String   @db.VarChar(255)
   remarks               String?  @db.VarChar(255)
-  created_at            DateTime @default(now()) @db.DateTime(0)
-  updated_at            DateTime @default(now()) @db.DateTime(0)
+  s_delete              Int      @default(0) @db.TinyInt
+
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
 }
 
 model user {
@@ -160,4 +147,35 @@ model user {
   password   String?  @db.VarChar(255)
   roll       String?  @db.VarChar(255)
   created_at DateTime @default(now()) @db.DateTime(0)
+}
+
+model candidate_roll {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+  s_delete   Int      @default(0) @db.TinyInt
+}
+
+model client_replica {
+  id                      Int      @id @default(autoincrement())
+  enquiry_raised_date     DateTime @db.DateTime(0)
+  enquiry_answerd_date    DateTime @db.DateTime(0)
+  name                    String   @db.Text
+  phone_number            Int      @db.MediumInt
+  alternative_phonenumber Int      @default(0) @db.MediumInt
+  email                   String?  @db.VarChar(255)
+  location                String?  @db.VarChar(255)
+  business_type           String?  @db.VarChar(255)
+  service_required        String?  @db.VarChar(255)
+  lead                    String?  @db.VarChar(255)
+  remark                  String?  @db.MediumText
+  not_interested          Int      @default(0) @db.TinyInt
+  committed               Int      @default(0) @db.TinyInt
+  company_name            String   @db.VarChar(255)
+  completed_id            String?  @db.VarChar(15)
+  added_by                String   @db.VarChar(255)
+  created_at              DateTime @default(now()) @db.DateTime(0)
+  updated_at              DateTime @default(now()) @db.DateTime(0)
+  s_delete                Int      @default(0) @db.TinyInt
 }

@@ -1,7 +1,13 @@
-import { ResponseBuilder, type ResponseFormat } from "src/config/helper";
-import { PrismaClient } from "src/generated/prisma/client";
-import { TokenClass } from "src/middleware/Authentication";
-import type { BusinessModel, CategoryModel, UserModel } from "src/model/adminModel.ts";
+import { ResponseBuilder, type ResponseFormat } from "../config/helper";
+import { PrismaClient } from "../generated/prisma/client";
+import { TokenClass } from "../middleware/Authentication";
+import type {
+  BusinessModel,
+  CandidateModel,
+  CategoryModel,
+  ClientModel,
+  UserModel,
+} from "src/model/adminModel.ts";
 const db = new PrismaClient();
 const authClass = new TokenClass();
 export class AdminServices {
@@ -127,119 +133,213 @@ export class AdminServices {
     }
   }
 
-
-  async createBusiness(data:BusinessModel):Promise<ResponseFormat>{
+  async createBusiness(data: BusinessModel): Promise<ResponseFormat> {
     try {
       const create = await db.business.create({
-        data:{
-          name:data.name
-        }
-      })
-      let result = create ? 1 : 0 
-      return ResponseBuilder.success(result,result ? "The value is created":"Error in Creating Value",[create])
+        data: {
+          name: data.name,
+        },
+      });
+      let result = create ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is created" : "Error in Creating Value",
+        [create]
+      );
     } catch (error) {
-      return ResponseBuilder.failure(0,"Error in Creating the Buisness",[error])
+      return ResponseBuilder.failure(0, "Error in Creating the Buisness", [
+        error,
+      ]);
     }
   }
 
-
-  async editBusiness(data:BusinessModel):Promise<ResponseFormat>{
+  async editBusiness(data: BusinessModel): Promise<ResponseFormat> {
     try {
       const update = await db.business.update({
-        where:{id:Number(data.id)},
-        data:{
-          name:data.name
-        }
-      })
-      let result = update ? 1 : 0
-      return ResponseBuilder.success(result,result ? "The value is updated":"The value is not Updated",[update])
+        where: { id: Number(data.id) },
+        data: {
+          name: data.name,
+        },
+      });
+      let result = update ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is updated" : "The value is not Updated",
+        [update]
+      );
     } catch (error) {
-      return ResponseBuilder.failure(0,"Error in Editing the Business",[error])
+      return ResponseBuilder.failure(0, "Error in Editing the Business", [
+        error,
+      ]);
     }
   }
 
-  async deleteBusiness(data:BusinessModel):Promise<ResponseFormat>{
+  async deleteBusiness(data: BusinessModel): Promise<ResponseFormat> {
     try {
       const existing = await db.business.findUnique({
-        where:{id:Number(data.id)},
-        select:{
-          s_delete:true
-        }
-      })
+        where: { id: Number(data.id) },
+        select: {
+          s_delete: true,
+        },
+      });
 
-      const newState = existing?.s_delete ? 1 :0 
+      const newState = existing?.s_delete ? 1 : 0;
       const update = await db.business.update({
-        where:{id:Number(data.id)},
-        data:{s_delete:newState}
-      })
+        where: { id: Number(data.id) },
+        data: { s_delete: newState },
+      });
 
-      let result = update ? 1 : 0 
-      return ResponseBuilder.success(result,result?"The value is deleted":"Error in deleting the value",[update])
-
+      let result = update ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is deleted" : "Error in deleting the value",
+        [update]
+      );
     } catch (error) {
-      return ResponseBuilder.failure(0,"Error in Deleting",[error])
+      return ResponseBuilder.failure(0, "Error in Deleting", [error]);
     }
   }
 
-
-
-
-  
-  async createDepartment(data:BusinessModel):Promise<ResponseFormat>{
+  async createDepartment(data: BusinessModel): Promise<ResponseFormat> {
     try {
       const create = await db.department.create({
-        data:{
-          name:data.name
-        }
-      })
-      let result = create ? 1 : 0 
-      return ResponseBuilder.success(result,result ? "The value is created":"Error in Creating Value",[create])
+        data: {
+          name: data.name,
+        },
+      });
+      let result = create ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is created" : "Error in Creating Value",
+        [create]
+      );
     } catch (error) {
-      return ResponseBuilder.failure(0,"Error in Creating the Buisness",[error])
+      return ResponseBuilder.failure(0, "Error in Creating the Buisness", [
+        error,
+      ]);
     }
   }
 
-
-  async editDepartment(data:BusinessModel):Promise<ResponseFormat>{
+  async editDepartment(data: BusinessModel): Promise<ResponseFormat> {
     try {
       const update = await db.department.update({
-        where:{id:Number(data.id)},
-        data:{
-          name:data.name
-        }
-      })
-      let result = update ? 1 : 0
-      return ResponseBuilder.success(result,result ? "The value is updated":"The value is not Updated",[update])
+        where: { id: Number(data.id) },
+        data: {
+          name: data.name,
+        },
+      });
+      let result = update ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is updated" : "The value is not Updated",
+        [update]
+      );
     } catch (error) {
-      return ResponseBuilder.failure(0,"Error in Editing the Business",[error])
+      return ResponseBuilder.failure(0, "Error in Editing the Business", [
+        error,
+      ]);
     }
   }
 
-  async deleteDepartment(data:BusinessModel):Promise<ResponseFormat>{
+  async deleteDepartment(data: BusinessModel): Promise<ResponseFormat> {
     try {
       const existing = await db.department.findUnique({
-        where:{id:Number(data.id)},
-        select:{
-          s_delete:true
-        }
-      })
+        where: { id: Number(data.id) },
+        select: {
+          s_delete: true,
+        },
+      });
 
-      const newState = existing?.s_delete ? 1 :0 
+      const newState = existing?.s_delete ? 1 : 0;
       const update = await db.business.update({
-        where:{id:Number(data.id)},
-        data:{s_delete:newState}
-      })
+        where: { id: Number(data.id) },
+        data: { s_delete: newState },
+      });
 
-      let result = update ? 1 : 0 
-      return ResponseBuilder.success(result,result?"The value is deleted":"Error in deleting the value",[update])
-
+      let result = update ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is deleted" : "Error in deleting the value",
+        [update]
+      );
     } catch (error) {
-      return ResponseBuilder.failure(0,"Error in Deleting",[error])
+      return ResponseBuilder.failure(0, "Error in Deleting", [error]);
+    }
+  }
+
+  async candidateRoll(data: BusinessModel): Promise<ResponseFormat> {
+    try {
+      const create = await db.candidate_roll.create({
+        data: {
+          name: data.name,
+        },
+      });
+      const result = create ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The department  Added" : "Error in Adding the Department",
+        [create]
+      );
+    } catch (error) {
+      return ResponseBuilder.failure(0, "Error in Adding the Roll");
+    }
+  }
+
+  async editCandidateRoll(data: BusinessModel): Promise<ResponseFormat> {
+    try {
+      const update = await db.candidate_roll.update({
+        where: { id: Number(data.id) },
+        data: {
+          name: data.name,
+        },
+      });
+      let result = update ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is Updated" : "Error in Updating the value",
+        [update]
+      );
+    } catch (error) {
+      return ResponseBuilder.failure(0, "Error in Updating the value", [error]);
+    }
+  }
+
+  async deleteCandidateRoll(id: number): Promise<ResponseFormat> {
+    try {
+      const existing = await db.candidate_roll.findUnique({
+        where: { id: Number(id) },
+        select: {
+          s_delete: true,
+        },
+      });
+      const newValue = existing?.s_delete ? 0 : 1;
+      const delets = await db.candidate_roll.update({
+        where: { id: Number(id) },
+        data: {
+          s_delete: newValue,
+        },
+      });
+      let result = delets ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The value is deleted" : "The value is not deleted",
+        [delets]
+      );
+    } catch (error) {
+      return ResponseBuilder.failure(0, "Error In deleting value", [error]);
     }
   }
 
 
-  // async createClinet(data:)
+
+  // async addClient(data:ClientModel):Promise<ResponseFormat>{
+  //   try {
+      
+  //   } catch (error) {
+      
+  //   }
+  // }
+
 
 
 }

@@ -234,6 +234,274 @@
           }
         }
       }
+    },
+    "/admin/createCandidateRoll": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/admin/editCandidateRoll": {
+      "patch": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/admin/deleteCandiateRoll": {
+      "delete": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/router/createCandidate": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "description": "API to create a new candidate record",
+        "parameters": [
+          {
+            "name": "enquiry_raised_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "enquiry_answered_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "type": "number",
+            "required": true,
+            "example": "123456789"
+          },
+          {
+            "name": "alternative_phonenumber",
+            "in": "formData",
+            "type": "number",
+            "example": "123456789"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd@gmail,.com"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "experience",
+            "in": "formData",
+            "type": "number"
+          },
+          {
+            "name": "months",
+            "in": "formData",
+            "type": "number"
+          },
+          {
+            "name": "degree",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "added_by",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/router/editCandidate": {
+      "patch": {
+        "tags": [
+          "Common"
+        ],
+        "description": "API to Edit a candidate record",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "enquiry_raised_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "enquiry_answered_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "type": "number",
+            "required": true,
+            "example": "123456789"
+          },
+          {
+            "name": "alternative_phonenumber",
+            "in": "formData",
+            "type": "number",
+            "example": "123456789"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd@gmail,.com"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "experience",
+            "in": "formData",
+            "type": "number"
+          },
+          {
+            "name": "months",
+            "in": "formData",
+            "type": "number"
+          },
+          {
+            "name": "degree",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "added_by",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/router/deleteCandidate": {
+      "delete": {
+        "tags": [
+          "Common"
+        ],
+        "description": "API to Edit a candidate record",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   }
 }
