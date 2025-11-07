@@ -111,7 +111,7 @@ export class CommonService {
     }
   }
 
-  async addClient(data: ClientModel): Promise<ResponseFormat> {
+  async createClient(data: ClientModel): Promise<ResponseFormat> {
     try {
       const create = await db.client.create({
         data: {
@@ -135,53 +135,83 @@ export class CommonService {
         result,
         result
           ? "The Client is added"
-          : "There is an Error in Adding the Client"
+          : "There is an Error in Adding the Client",[create]
       );
     } catch (error) {
+        console.log('error', error)
       return ResponseBuilder.failure(0, "Error in Adding the Client", [error]);
     }
   }
 
- async editClient(data: ClientModel): Promise<ResponseFormat> {
-  try {
-    const existing = await db.client.findUnique({
-      where: { id: Number(data.id) },
-    });
+  async editClient(data: ClientModel): Promise<ResponseFormat> {
+    try {
+      const existing = await db.client.findUnique({
+        where: { id: Number(data.id) },
+      });
 
-    if (!existing) {
-      return ResponseBuilder.failure(0, "No Client Found", []);
+      if (!existing) {
+        return ResponseBuilder.failure(0, "No Client Found", []);
+      }
+
+      const update: any = {};
+      Object.keys(data).forEach((key) => {
+        if (key === "id") return;
+        const val = (data as any)[key];
+        update[key] = val === "" ? null : val;
+      });
+
+      if (update.phone_number)
+        update.phone_number = Number(update.phone_number);
+      if (update.alternative_phonenumber)
+        update.alternative_phonenumber = Number(update.alternative_phonenumber);
+      if (update.enquiry_raised_date)
+        update.enquiry_raised_date = new Date(update.enquiry_raised_date);
+      if (update.enquiry_answerd_date)
+        update.enquiry_answerd_date = new Date(update.enquiry_answerd_date);
+
+      const changes = await db.client.update({
+        where: { id: Number(data.id) },
+        data: update,
+      });
+
+      const result = changes ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "Client updated successfully" : "Error updating client",
+        [changes]
+      );
+    } catch (error: any) {
+      console.log("error", error);
+      return ResponseBuilder.failure(0, "Error in updating client", [error]);
     }
-
-    const update: any = {};
-    Object.keys(data).forEach((key) => {
-      if (key === "id") return;
-      const val = (data as any)[key];
-      update[key] = val === "" ? null : val;
-    });
-
-    if (update.phone_number) update.phone_number = Number(update.phone_number);
-    if (update.alternative_phonenumber)
-      update.alternative_phonenumber = Number(update.alternative_phonenumber);
-    if (update.enquiry_raised_date)
-      update.enquiry_raised_date = new Date(update.enquiry_raised_date);
-    if (update.enquiry_answerd_date)
-      update.enquiry_answerd_date = new Date(update.enquiry_answerd_date);
-
-    const changes = await db.client.update({
-      where: { id: Number(data.id) },
-      data: update,
-    });
-
-    const result = changes ? 1 : 0;
-    return ResponseBuilder.success(
-      result,
-      result ? "Client updated successfully" : "Error updating client",
-      [changes]
-    );
-  } catch (error: any) {
-    console.log("error", error);
-    return ResponseBuilder.failure(0, "Error in updating client", [error]);
   }
-}
+
+  async deleteClient(id: number): Promise<ResponseFormat> {
+    try {
+      const existing = await db.client.findUnique({
+        where: { id: Number(id) },
+        select: {
+          s_delete: true,
+        },
+      });
+      const newVal = existing?.s_delete ? 0 : 1;
+      const updates = await db.client.update({
+        where: { id: Number(id) },
+        data: {
+          s_delete: newVal,
+        },
+      });
+      let result = updates ? 1 : 0;
+      return ResponseBuilder.success(
+        result,
+        result ? "The Value is Deleted" : "Error in Deleting the Value",
+        [updates]
+      );
+    } catch (error) {
+      return ResponseBuilder.failure(0, "Error in Updating the Client", [
+        error,
+      ]);
+    }
+  }
 
 }

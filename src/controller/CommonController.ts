@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express"
 import { ResponseBuilder } from "src/config/helper"
-import type { CandidateModel } from "src/model/adminModel"
+import type { CandidateModel, ClientModel } from "src/model/adminModel"
 import { CommonService } from "src/service/commonService"
 
 export class CommonController{
@@ -29,6 +29,7 @@ export class CommonController{
     }
   }
   
+  
   deleteCandidate:RequestHandler = async(req,res)=>{
     try {
       const id = Number(req.query.id)
@@ -38,6 +39,37 @@ export class CommonController{
       return res.status(400).json(ResponseBuilder.failure(0, "Internal Server Error", [error]));
       
     }
-  }
+}
+
+addClient:RequestHandler = async(req,res)=>{
+    try {
+        const data:ClientModel = req.body
+        const creates = await this.commonService.createClient(data)
+        return res.status(200).json(creates)
+    } catch (error) {
+        
+        return res.status(400).json(ResponseBuilder.failure(0, "Internal Server Error", [error]));
+    }
+}
+editClient:RequestHandler = async(req,res)=>{
+    try {
+        const data:ClientModel = req.body
+        const  editClients = await this.commonService.editClient(data)
+        return res.status(200).json(editClients)
+    } catch (error) {
+        return res.status(400).json(ResponseBuilder.failure(0, "Internal Server Error", [error]));
+        
+    }
+}
+
+deleteClient:RequestHandler =async(req,res)=>{
+    try {
+        const id = Number(req.query.id)
+        const deletes = await this.commonService.deleteClient(id)
+        return res.status(200).json(deletes)
+    } catch (error) {
+        return res.status(400).json(ResponseBuilder.failure(0, "Internal Server Error", [error]));
+    }
+}
 
 }

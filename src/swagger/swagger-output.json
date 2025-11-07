@@ -502,6 +502,219 @@
           }
         }
       }
+    },
+    "/router/createClient": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "description": "API to create a new candidate record",
+        "parameters": [
+          {
+            "name": "enquiry_raised_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "enquiry_answerd_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd"
+          },
+          {
+            "name": "company_name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "type": "number",
+            "required": true,
+            "example": "123456789"
+          },
+          {
+            "name": "alternative_phonenumber",
+            "in": "formData",
+            "type": "number",
+            "example": "123456789"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd@gmail,.com"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "business_type",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "service_required",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "lead",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "added_by",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/router/editClient": {
+      "patch": {
+        "tags": [
+          "Common"
+        ],
+        "description": "API to create a new candidate record",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "type": "number",
+            "example": "1"
+          },
+          {
+            "name": "enquiry_raised_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "enquiry_answerd_date",
+            "in": "formData",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-07T00:00:00Z"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd"
+          },
+          {
+            "name": "company_name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "type": "number",
+            "required": true,
+            "example": "123456789"
+          },
+          {
+            "name": "alternative_phonenumber",
+            "in": "formData",
+            "type": "number",
+            "example": "123456789"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "abcd@gmail,.com"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "business_type",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "service_required",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "lead",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "added_by",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/router/deleteClient": {
+      "delete": {
+        "tags": [
+          "Common"
+        ],
+        "description": "API to Edit a candidate record",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   }
 }
