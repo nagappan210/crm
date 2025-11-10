@@ -57,6 +57,8 @@ export interface SpamModel {
   id?: number;
   enquiry_raised_date: Date;
   enquiry_answered_date: Date;
+  phone_number:number,
+  email:string,
   name: string;
   location: string;
   leads: string;

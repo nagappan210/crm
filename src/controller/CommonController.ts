@@ -1,13 +1,13 @@
 import type { RequestHandler } from "express"
 import { ResponseBuilder } from "src/config/helper"
-import type { CandidateModel, ClientModel } from "src/model/adminModel"
+import type { CandidateModel, ClientModel, SpamModel } from "src/model/adminModel"
 import { CommonService } from "src/service/commonService"
 
 export class CommonController{
 
     private commonService = new CommonService()
-
-      createCandidate:RequestHandler =async(req,res)=>{
+ 
+ createCandidate:RequestHandler =async(req,res)=>{
     try {
       const data:CandidateModel = req.body
       const create = await this.commonService.createCandidate(data)
@@ -17,6 +17,7 @@ export class CommonController{
       
     }
   }
+
   editCandidate:RequestHandler = async(req,res)=>{
     try {
       const data:CandidateModel = req.body
@@ -72,4 +73,34 @@ deleteClient:RequestHandler =async(req,res)=>{
     }
 }
 
+addSpam:RequestHandler=async(req,res)=>{
+  try {
+    const data:SpamModel = req.body
+    const create  = await this.commonService.addSpam(data)
+    console.log('create', create)
+    return res.status(200).json(create)
+  } catch (error:any) {
+    return res.status(400).json(ResponseBuilder.failure(0,"Internal Server Error",error))
+  }
+}
+editSpam:RequestHandler=async(req,res)=>{
+  try {
+    const data:SpamModel = req.body
+    data.id = Number(data.id)
+    const edits = await this.commonService.editSpam(data)
+    return res.status(200).json(edits)
+  } catch (error) {
+    return res.status(400).json(ResponseBuilder.failure(0,"Internal Server Error"))    
+  }
+}
+deleteSpam:RequestHandler =async(req,res)=>{
+  try {
+    const id = Number(req.query.id)
+    const delets = await this.commonService.deleteSpam(id)
+    return res.status(200).json(delets)
+  } catch (error) {
+    return res.status(400).json(ResponseBuilder.failure(0,"Internal Server Error"))    
+    
+  }
+}
 }

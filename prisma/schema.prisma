@@ -129,16 +129,18 @@ model department {
 
 model spam {
   id                    Int      @id @default(autoincrement())
+  email                 String?  @db.VarChar(255)
+  phone_number          Int      @default(0)
   enquiry_raised_date   DateTime @db.DateTime(0)
   enquiry_answered_date DateTime @db.DateTime(0)
   name                  String   @db.VarChar(255)
   location              String   @db.VarChar(255)
   leads                 String   @db.VarChar(255)
   remarks               String?  @db.VarChar(255)
+  added_by              String?  @db.VarChar(255)
+  created_at            DateTime @default(now()) @db.DateTime(0)
+  updated_at            DateTime @default(now()) @db.DateTime(0)
   s_delete              Int      @default(0) @db.TinyInt
-
-  created_at DateTime @default(now()) @db.DateTime(0)
-  updated_at DateTime @default(now()) @db.DateTime(0)
 }
 
 model user {

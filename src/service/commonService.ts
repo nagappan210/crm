@@ -1,4 +1,4 @@
-import type { CandidateModel, ClientModel } from "src/model/adminModel";
+import type { CandidateModel, ClientModel, SpamModel } from "src/model/adminModel";
 import { PrismaClient } from "../generated/prisma/client";
 import { ResponseBuilder, type ResponseFormat } from "src/config/helper";
 
@@ -137,9 +137,8 @@ export class CommonService {
           ? "The Client is added"
           : "There is an Error in Adding the Client",[create]
       );
-    } catch (error) {
-        console.log('error', error)
-      return ResponseBuilder.failure(0, "Error in Adding the Client", [error]);
+    } catch (error:any) {
+      return ResponseBuilder.failure(0, "Error in Adding the Client", [error.message]);
     }
   }
 
@@ -182,7 +181,7 @@ export class CommonService {
       );
     } catch (error: any) {
       console.log("error", error);
-      return ResponseBuilder.failure(0, "Error in updating client", [error]);
+      return ResponseBuilder.failure(0, "Error in updating client", [error.message]);
     }
   }
 
@@ -209,9 +208,94 @@ export class CommonService {
       );
     } catch (error) {
       return ResponseBuilder.failure(0, "Error in Updating the Client", [
-        error,
+        error.message,
       ]);
     }
   }
+
+  async addSpam(data:SpamModel):Promise<ResponseFormat>{
+    try {
+     
+      const create = await db.spam.create({
+        data:{
+          enquiry_raised_date:new Date(data.enquiry_raised_date),
+          enquiry_answered_date:new Date(data.enquiry_answered_date),
+          name:data.name,
+          phone_number:Number(data.phone_number),
+          email:data.email,
+          location:data.location,
+          leads:data.leads,
+          remarks:data.remarks          
+        }
+      })
+      let result = create ? 1 : 0
+      return ResponseBuilder.success(result,result?"The Spam is Added":"Error in Adding the Spam",[create])
+    } catch (error:any) {
+      return ResponseBuilder.failure(0,"Error in Adding the Spam",error.message)
+    }
+  }
+
+  async editSpam(data:SpamModel):Promise<ResponseFormat>{
+    try {
+      if(!data.id){
+        throw ResponseBuilder.failure(0,"Spam Id is Required",[])
+      }
+      const existing = await db.spam.findUnique({
+        where:{id:data.id}
+      })
+      const update:any = {}
+      Object.keys(data).forEach((key)=>{
+        if(key === "id") return
+        const val = (data as any)[key]
+        update[key] = val === "" ? null : val 
+      })
+      if(update.enquiry_raised_date){
+        update.enquiry_raised_date = new Date(update.enquiry_raised_date)
+      }
+      if(update.enquiry_answered_date){
+        update.enquiry_answered_date = new Date(update.enquiry_answered_date)
+      }
+      if(update.phone_number){
+        update.phone_number = Number(update.phone_number)
+      }
+      const updates = await db.spam.update({
+        where:{id:Number(data.id)},
+        data:update
+      })
+      let result = updates ? 1 : 0 
+      return ResponseBuilder.success(result,result?"The value is Updated":"Error in Updating the Value",[updates])
+    } catch (error:any) {
+      return ResponseBuilder.failure(0,"Error in Updating the Value",[error.message])
+    }
+  }
+
+  async deleteSpam(id:number){
+    try {
+      const existing = await db.spam.findUnique({
+        where:{id:id},
+        select:{
+          s_delete:true
+        }
+      })
+      const newValue = existing?.s_delete ? 0 : 1
+      let deletes = await db.spam.update({
+        where:{id:id},
+        data:{
+          s_delete:newValue
+        }
+      })
+
+      let result = deletes ? 1 : 0 
+      return ResponseBuilder.success(result,newValue?"The value is deleted":"The value is  undeleted",[deletes])
+
+    } catch (error) {
+      return ResponseBuilder.failure(0,"Error in Deleting the value",[error])
+    }
+  }
+
+
+  
+
+
 
 }

@@ -108,4 +108,48 @@ routerCommon.delete("/deleteClient",
 
 
 
+routerCommon.post(
+  "/createSpam",
+  //#swagger.tags = ['Common']
+  //#swagger.description = 'API to create a new Spam record'
+  //#swagger.parameters['enquiry_raised_date']= { in:'formData',type: 'string', format: 'date-time', example: '2025-11-07T00:00:00Z' },
+  //#swagger.parameters['enquiry_answered_date']= {in:'formData', type: 'string', format: 'date-time', example: '2025-11-07T00:00:00Z' }
+  //#swagger.parameters['name'] = {in:'formData',type:'string',required:true ,example:"abcd"}
+   //#swagger.parameters['phone_number'] = {in:'formData',type:'number',required:true ,example:"123456789"}
+  //#swagger.parameters['email'] = {in:'formData',type:'string',required:true ,example:"abcd@gmail,\.com"}
+  //#swagger.parameters['location'] = {in:'formData',type:'string'}
+  //#swagger.parameters['leads'] = {in:'formData',type:'string'}
+  //#swagger.parameters['remarks'] = {in:'formData',type:'string'}
+  //#swagger.parameters['added_by'] = {in:'formData',type:'string'}
+  controllerCommon.addSpam
+);
+
+
+
+routerCommon.patch(
+  "/editSpam",
+  //#swagger.tags = ['Common']
+  //#swagger.description = 'API to create a new candidate record'
+  //#swagger.parameters['id']= { in:'formData',type: 'number', example: '1' },
+  //#swagger.parameters['enquiry_raised_date']= { in:'formData',type: 'string', format: 'date-time', example: '2025-11-07T00:00:00Z' },
+  //#swagger.parameters['enquiry_answered_date']= {in:'formData', type: 'string', format: 'date-time', example: '2025-11-07T00:00:00Z' }
+  //#swagger.parameters['name'] = {in:'formData',type:'string',example:"abcd"}
+   //#swagger.parameters['phone_number'] = {in:'formData',type:'number',example:"123456789"}
+  //#swagger.parameters['email'] = {in:'formData',type:'string',example:"abcd@gmail,\.com"}
+  //#swagger.parameters['location'] = {in:'formData',type:'string'}
+  //#swagger.parameters['leads'] = {in:'formData',type:'string'}
+  //#swagger.parameters['remarks'] = {in:'formData',type:'string'}
+  //#swagger.parameters['added_by'] = {in:'formData',type:'string'}
+  controllerCommon.editSpam
+);
+
+
+
+routerCommon.delete("/deleteSpam",
+  //#swagger.tags = ['Common']
+  //#swagger.description = 'API to Delete a  Spam record'
+  //#swagger.parameters['id']= { in:'query',type: 'number',required:true },
+  controllerCommon.deleteSpam
+)
+
 export default routerCommon
