@@ -390,6 +390,125 @@
         }
       }
     },
+    "/router/uploadClientFiles/{clientId}": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "description": "API to upload client, followup, and payment files dynamically based on clientId",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "clientFile",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "paymentFile",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "followupFile",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "transcationId",
+            "in": "formData",
+            "type": "string",
+            "example": "abcd"
+          },
+          {
+            "name": "followUpId",
+            "in": "formData",
+            "type": "number",
+            "example": "123456789"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/router/editClientFiles/{clientId}": {
+      "patch": {
+        "tags": [
+          "Client"
+        ],
+        "description": "API to edit (delete and add) client, followup, and payment files for a specific clientId and category",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "example": "client",
+            "description": "Category of file - client, payment, or followup"
+          },
+          {
+            "name": "followUpId",
+            "in": "formData",
+            "type": "number",
+            "required": false,
+            "example": "12345"
+          },
+          {
+            "name": "transcationId",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "example": "TXN001"
+          },
+          {
+            "name": "deleteIds",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "example": "[1, 2, 3]"
+          },
+          {
+            "name": "clientFile",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "paymentFile",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "followupFile",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/router/editCandidate": {
       "patch": {
         "tags": [

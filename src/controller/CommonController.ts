@@ -3,7 +3,21 @@ import { ResponseBuilder } from "src/config/helper"
 import type { CandidateModel, ClientModel, SpamModel } from "src/model/adminModel"
 import { CommonService } from "src/service/commonService"
 
+
+
+const getFileTypeId = (mimetype: string) => {
+  if (mimetype.startsWith("image/")) return 1; // images
+  if (mimetype.startsWith("audio/")) return 2; // audios
+  return 3; // docs, pdf, excel, others
+};
+
+
+
 export class CommonController{
+
+
+
+
 
     private commonService = new CommonService()
  
@@ -103,4 +117,54 @@ deleteSpam:RequestHandler =async(req,res)=>{
     
   }
 }
+
+
+uploadClientFiles: RequestHandler = async (req, res) => {
+    try {
+      const clientId = Number(req.params.clientId)
+      const data = req.body
+      const result = await this.commonService.uploadClientFiles(clientId, data,req.files);
+      return res.status(200).json(result);
+    } catch (error: any) {
+      return res
+        .status(400)
+        .json(ResponseBuilder.failure(0, "Internal Server Error", error));
+    }
+  };
+
+   editClientFiles: RequestHandler = async (req, res) => {
+    try {
+      const clientId = Number(req.params.clientId);
+      const { category, followUpId, transcationId } = req.body;
+
+      let deleteIds: number[] = [];
+      if (req.body.deleteIds) {
+        try {
+          deleteIds = Array.isArray(req.body.deleteIds)
+            ? req.body.deleteIds.map(Number)
+            : JSON.parse(req.body.deleteIds);
+        } catch {
+          deleteIds = [];
+        }
+      }
+
+      console.log('deleteIds', deleteIds)
+      const result = await this.commonService.editClientFiles(
+        Number(followUpId),
+        transcationId || "",
+        clientId,
+        category,
+        req.files,
+        deleteIds
+      );
+
+      return res.status(200).json(result);
+    } catch (error: any) {
+      console.error("Error in editClientFiles controller:", error);
+      return res
+        .status(400)
+        .json(ResponseBuilder.failure(0, "Internal Server Error", [error.message]));
+    }
+  };
+
 }

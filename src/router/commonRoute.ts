@@ -1,5 +1,6 @@
 import express from 'express'
 import { CommonController } from 'src/controller/CommonController'
+import { uploadClientFiles } from 'src/middleware/Multer';
 
 const controllerCommon = new CommonController()
 
@@ -24,6 +25,36 @@ routerCommon.post(
   controllerCommon.createCandidate
 );
 
+
+routerCommon.post(
+  "/uploadClientFiles/:clientId",
+  //#swagger.tags = ['Client']
+  //#swagger.description = 'API to upload client, followup, and payment files dynamically based on clientId'
+  //#swagger.parameters['clientFile'] = { in: 'formData', type: 'file', required: false }
+  //#swagger.parameters['paymentFile'] = { in: 'formData', type: 'file', required: false }
+  //#swagger.parameters['followupFile'] = { in: 'formData', type: 'file', required: false }
+  //#swagger.parameters['transcationId'] = {in:'formData',type:'string',example:"abcd"}
+  //#swagger.parameters['followUpId'] = {in:'formData',type:'number' ,example:"123456789"}
+ 
+  uploadClientFiles,
+  controllerCommon.uploadClientFiles
+);
+
+
+routerCommon.patch(
+  "/editClientFiles/:clientId",
+  //#swagger.tags = ['Client']
+  //#swagger.description = 'API to edit (delete and add) client, followup, and payment files for a specific clientId and category'
+  //#swagger.parameters['category'] = { in: 'formData', type: 'string', required: true, example: "client", description: "Category of file - client, payment, or followup" }
+  //#swagger.parameters['followUpId'] = { in: 'formData', type: 'number', required: false, example: "12345" }
+  //#swagger.parameters['transcationId'] = { in: 'formData', type: 'string', required: false, example: "TXN001" }
+  //#swagger.parameters['deleteIds'] = { in: 'formData', type: 'string', required: false, example: "[1, 2, 3]" }
+  //#swagger.parameters['clientFile'] = { in: 'formData', type: 'file', required: false }
+  //#swagger.parameters['paymentFile'] = { in: 'formData', type: 'file', required: false }
+  //#swagger.parameters['followupFile'] = { in: 'formData', type: 'file', required: false }
+  uploadClientFiles,
+  controllerCommon.editClientFiles
+);
 
 
 routerCommon.patch(
