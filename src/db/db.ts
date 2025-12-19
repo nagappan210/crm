@@ -11,4 +11,5 @@ async function dbConnect(){
     }
 }
 
+console.log('db', db)
 dbConnect()
